@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<!--Ortografía & Simbolos-->
+		<meta name="tipo_contenido"  content="text/html;" http-equiv="content-type" charset="utf-8">
+		<!--Escala Ajustable de Pagina-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!--Bootsrap Properties-->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+		<!--Google Page Font-->
+		<link href='https://fonts.googleapis.com/css?family=Arbutus Slab' rel='stylesheet'>
+
+		<!--Carousel Stuff-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  		<!--Carpeta Comunicación Ajustes Arduino-->
+  		<script src="Arduino.js"></script>
+
+		<style>
+			body {
+				font-family: 'Arbutus Slab'; /*Caligrafía (necesita api para font)*/
+				color: #929292; /* Font Color*/
+				margin: 8px; /*Margen Pagina*/
+				background-repeat: no-repeat; /*Propiedades de Fondo (imagen)*/
+				background-attachment: fixed;
+				background-position: center;
+				background-color: #2d254f;
+			}
+			.carousel-inner img {
+			    width: 100%;
+			    height: 100%;
+			}
+			fieldset.scheduler-border {
+			    border: 3px
+			    groove #ddd;
+			    padding: 7px;
+			    margin: 2px;
+				text-align: left;
+			}
+			legend.scheduler-border {
+			    width: auto; /* Or inherit */
+			    padding: 3px; /* To give a bit of padding on the left and right */
+			    border-bottom: none;
+			}
+			#tableA {
+				width: 350px;
+				height: 50px;
+			}
+		</style>
+
+		<title>Riego_At. by PeI</title>
+		<link rel="icon" type="Image/jpeg" href="Logo_PeI.jpeg"/>
+
+ 	</head>
+
+	<body>
+		<!--Div Titulo + Logo-->
+		<div class="row">
+			<div class="col-sm-1">
+				<img src="Logo_PeI.jpeg" width="80" height="80" class="rounded" alt="Cinque Terre">
+			</div>
+			<div class="col-sm-11">
+				<div class="col-sm-11">
+					<h1><center>La siguiente pagina está hecha para la observación y control de el sistema de regadío <STRONG><i>PeI</i></STRONG></center></h1>
+				</div>
+				<div class="col-sm-1">
+					
+				</div>
+			</div>
+		</div>
+
+		<hr>
+
+		<div class="containter">
+			<div class="row">
+				<div class="col-lg-6">
+					<p>
+						<strong>Requisitos del proyecto:</strong>
+					</p>
+
+					<p>
+						Primera Función:
+							<ul>
+								<li>Función & control de bomba agua.</li>
+								<li>Función & control sensor de humedad.</li>
+								<li>La bomba de agua debe funciónar al momento en el que la humedad de la tierra se encuentre en bajos niveles (niveles que afecten a la planta).</li>
+							</ul>
+						Segunda Función:
+							<ul>
+								<li>Generar Estadistica diaria de:</li>
+									<ul>
+										<li>Temperatura;</li>
+										<li>Humedad;</li>
+										<li>Hora & día;</li>
+										<li>Consumo de agua;</li>
+									</ul>
+								<li>La estadistica proporciona datos sobre el día en general en base a calor/humedad, cuanta agua se gasta a tal hora y cuanto dura la humedad en tierra de la planta en periodos de tiempo.</li>
+								<li>La estadistica de los datos anteriormente mencionados tendrá como objetivo
+								otorgar mayor eficiencia al momento del regadío.</li>
+							</ul>
+					</p>
+				</div>
+				<div class="col-sm-6">
+					<p>
+						<strong>Diseño de Pantalla Dividida (Segunda Plana)</strong>
+					</p>
+
+					<div id="demo" class="carousel slide" data-ride="carousel">
+						<!-- Indicators -->
+						<ul class="carousel-indicators">
+							<li data-target="#demo" data-slide-to="0" class="active"></li>
+							<li data-target="#demo" data-slide-to="1"></li>
+							<li data-target="#demo" data-slide-to="2"></li>
+							<li data-target="#demo" data-slide-to="3"></li>
+						</ul>
+
+						<!-- The slideshow -->
+						<div class="carousel-inner">
+							<div class="carousel-item active">
+								<img src="409.jpg" alt="Laguna Chaxa" width="4928" height="3264">
+							</div>
+
+							<div class="carousel-item">
+								<img src="445.jpg" alt="San Pedro de Atacama" width="4928" height="3264">
+							</div>
+
+							<div class="carousel-item">
+								<img src="635.jpg" alt="San Pedro de Atacama (Tour Astronómico)" width="4928" height="3264">
+							</div>
+							<div class="carousel-item">
+								<img src="622.jpg" alt="San Pedro de Atacama" width="4928" height="3264">
+							</div>
+						</div>
+
+						<!-- Left and right controls -->
+						<a class="carousel-control-prev" href="#demo" data-slide="prev">
+							<span class="carousel-control-prev-icon"></span>
+						</a>
+
+						<a class="carousel-control-next" href="#demo" data-slide="next">
+							<span class="carousel-control-next-icon"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<hr>
+
+			<h3><center>Base de la Pagina</center></h3>
+
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<center>
+							<p><strong>Arduino Control</strong></p>
+							<table style="text-align: center" id="tableA">
+								<tr>
+									<td><button type="button" id="ButtonON" class="btn btn-success">Encender</button></td>
+									<td><button type="button" id="ButtonOFF"class="btn btn-danger">Apagar</button></td>
+								</tr>
+							</table>
+							<br>
+							<table>
+								<td>
+									<input type="text" size="16" maxlength="16" placeholder="Ingrese Texto para LCD" id="TextArd">
+									<button type="button" id="ButtonSend" class="btn btn-success">Enviar</button>
+								</td>
+							</table>
+						</center>
+					</div>
+					<div class="col-sm-6">
+						<p><center><strong>Materia html Prueba</strong></center></p>
+						<div>
+							<form>
+								<fieldset><legend>Autenticación:</legend>
+									<table border="3">
+										<tr>
+											<td><label>Rut: </label></td>
+											<td><input type="text" name="txtRut" size="11" maxlength="10" placeholder="12345678-9" value="" /></td>
+										</tr>
+										<tr>
+											<td><label>Password: </label></td>
+											<td><input type="password" name="txtPass" size="12" placeholder="Clave" value="" /></td>
+										</tr>
+										<tr>
+											<td><label>Edad(Aproximación con multiplos de 5): </label></td>
+											<td><input type="number" name="txtNro" min="0" max="999" step="5" /></td>
+										</tr>
+										<tr>
+											<td><label>Comúna/Región: </label></td>
+											<td>
+												<select name="cboComuna">
+													<optgroup label="Metropolitana">
+														<option>Providencia</option>
+														<option>San miguel</option>
+														<option>Estación Central</option>
+														<option>Maipú</option>
+														<option>Puente Alto</option>
+														<option>Vitacura</option>
+														<option>San Bernardo</option>
+														<option>Las Condes</option>
+														<option selected>Santiago</option>
+														<option disabled>Buín</option>
+													</optgroup>
+													
+													<optgroup label="Regiones">
+														<option value="1">I. Tarapacá</option>
+														<option value="2">II. Antofagasta</option>
+														<option value="3">III. Atacama</option>
+														<option value="4">IV. Coquimbo</option>
+														<option value="5">V. Valparaíso</option>
+													</optgroup>
+												</select>
+											</td>
+										</tr>
+									</table>
+
+									<input type="submit" name="btnEnviar" value="Enviar" />
+									<input type="reset" name="btnReset">
+									<!--<button type="reset">Restaurar</button>-->
+								</fieldset>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<hr>
+
+			<div>
+				<form>
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Ejemplo</legend>
+							<label>IngreseEjem: </label>
+								<input type="text" name="txtEjem" size="12" maxlength="10" placeholder="OpacoEjem" value="PrincipalEjem">
+								</br>
+								<input type="submit" name="btnEjem" value="NombrebtnEjem">
+
+								<input type="reset" name="ResetEjem" value="BorrarEjem">
+					</fieldset>
+				</form>
+			</div>
+		</div>
+
+	</body>
+
+</html>
